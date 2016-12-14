@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
-var Shop = require('./shop');
+var Post = require('./post');
 
 var UserSchema = new mongoose.Schema({
     local : {

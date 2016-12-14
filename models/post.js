@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var ShopSchema = new mongoose.Schema({
+var PostSchema = new mongoose.Schema({
         user:          { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
         name:         { type: String,  required: true },
         completed:     { type: Boolean, required: true }
@@ -16,12 +16,12 @@ function date2String(date) {
     return date.toLocaleDateString('en-US', options);
 }
 
-ShopSchema.methods.getCreatedAt = function() {
+PostSchema.methods.getCreatedAt = function() {
     return date2String(this.createdAt);
 };
 
-ShopSchema.methods.getUpdatedAt = function() {
+PostSchema.methods.getUpdatedAt = function() {
     return date2String(this.updatedAt);
 };
 
-module.exports = mongoose.model('Shop', ShopSchema);
+module.exports = mongoose.model('Post', PostSchema);
