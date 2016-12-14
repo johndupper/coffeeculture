@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Shop = require('../models/shop');
+var Post = require('../models/post');
 
 function makeError(res, message, status) {
     res.statusCode = status;
@@ -23,9 +23,9 @@ function authenticate(req, res, next) {
 // INDEX
 router.get('/', authenticate, function(req, res, next) {
     // get all the todos and render the index view
-    Shop.find({ user: currentUser }).sort('-createdAt')
-        .then(function(shops) {
-            res.render('todos/index', { todos: todos } );
+    Post.find({ user: currentUser }).sort('-createdAt')
+        .then(function(posts) {
+            res.render('posts/index', { posts: posts } );
         })
         .catch(function(err) {
             return next(err);
@@ -34,20 +34,20 @@ router.get('/', authenticate, function(req, res, next) {
 
 // NEW
 router.get('/new', authenticate, function(req, res, next) {
-    var todo = {
+    var post = {
         title: '',
         completed: false
     };
-    res.render('todos/new', { todo: todo } );
+    res.render('posts/new', { post: post } );
 });
 
 // SHOW
 router.get('/:id', authenticate, function(req, res, next) {
-    Todo.findById(req.params.id)
-        .then(function(todo) {
-            if (!todo) return next(makeError(res, 'Document not found', 404));
-            if (!todo.user.equals(currentUser.id)) return next(makeError(res, 'Nacho Todo!', 401));
-            res.render('todos/show', { todo: todo });
+    Post.findById(req.params.id)
+        .then(function(post) {
+            if (!post) return next(makeError(res, 'Document not found', 404));
+            if (!post.user.equals(currentUser.id)) return next(makeError(res, 'This is not your post!', 401));
+            res.render('posts/show', { post: post });
         })
         .catch(function(err) {
             return next(err);
@@ -56,14 +56,14 @@ router.get('/:id', authenticate, function(req, res, next) {
 
 // CREATE
 router.post('/', authenticate, function(req, res, next) {
-    var todo = new Todo({
+    var post = new Post({
         user:      currentUser,
         title:     req.body.title,
         completed: req.body.completed ? true : false
     });
-    todo.save()
+    post.save()
         .then(function(saved) {
-            res.redirect('/todos');
+            res.redirect('/posts');
         })
         .catch(function(err) {
             return next(err);
@@ -72,11 +72,11 @@ router.post('/', authenticate, function(req, res, next) {
 
 // EDIT
 router.get('/:id/edit', authenticate, function(req, res, next) {
-    Todo.findById(req.params.id)
-        .then(function(todo) {
-            if (!todo) return next(makeError(res, 'Document not found', 404));
-            if (!todo.user.equals(currentUser.id)) return next(makeError(res, 'Nacho Todo!', 401));
-            res.render('todos/edit', { todo: todo });
+    Post.findById(req.params.id)
+        .then(function(post) {
+            if (!post) return next(makeError(res, 'Document not found', 404));
+            if (!post.user.equals(currentUser.id)) return next(makeError(res, 'This is not your post!', 401));
+            res.render('posts/edit', { post: post });
         })
         .catch(function(err) {
             return next(err);
@@ -85,16 +85,16 @@ router.get('/:id/edit', authenticate, function(req, res, next) {
 
 // UPDATE
 router.put('/:id', authenticate, function(req, res, next) {
-    Todo.findById(req.params.id)
-        .then(function(todo) {
-            if (!todo) return next(makeError(res, 'Document not found', 404));
-            if (!todo.user.equals(currentUser.id)) return next(makeError(res, 'Nacho Todo!', 401));
-            todo.title = req.body.title;
-            todo.completed = req.body.completed ? true : false;
-            return todo.save();
+    Post.findById(req.params.id)
+        .then(function(post) {
+            if (!post) return next(makeError(res, 'Document not found', 404));
+            if (!post.user.equals(currentUser.id)) return next(makeError(res, 'This is not your post!', 401));
+            post.title = req.body.title;
+            post.completed = req.body.completed ? true : false;
+            return post.save();
         })
         .then(function(saved) {
-            res.redirect('/todos');
+            res.redirect('/posts');
         })
         .catch(function(err) {
             return next(err);
@@ -103,13 +103,13 @@ router.put('/:id', authenticate, function(req, res, next) {
 
 // DESTROY
 router.delete('/:id', authenticate, function(req, res, next) {
-    Todo.findById(req.params.id)
-        .then(function(todo) {
-            if (!todo.user.equals(currentUser.id)) return next(makeError(res, 'Nacho Todo!', 401));
-            return todo.remove();
+    Post.findById(req.params.id)
+        .then(function(post) {
+            if (!post.user.equals(currentUser.id)) return next(makeError(res, 'This is not your post!', 401));
+            return post.remove();
         })
         .then(function() {
-            res.redirect('/todos');
+            res.redirect('/posts');
         })
         .catch(function(err) {
             return next(err);
@@ -118,15 +118,15 @@ router.delete('/:id', authenticate, function(req, res, next) {
 
 // TOGGLE completed
 router.get('/:id/toggle', authenticate, function(req, res, next) {
-    Todo.findById(req.params.id)
-        .then(function(todo) {
-            if (!todo) return next(makeError(res, 'Document not found', 404));
-            if (!todo.user.equals(currentUser.id)) return next(makeError(res, 'Nacho Todo!', 401));
-            todo.completed = !todo.completed;
-            return todo.save();
+    Post.findById(req.params.id)
+        .then(function(post) {
+            if (!post) return next(makeError(res, 'Document not found', 404));
+            if (!post.user.equals(currentUser.id)) return next(makeError(res, 'This post is not yours!', 401));
+            post.completed = !post.completed;
+            return post.save();
         })
         .then(function(saved) {
-            res.redirect('/todos');
+            res.redirect('/posts');
         })
         .catch(function(err) {
             return next(err);
