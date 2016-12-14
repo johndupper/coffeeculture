@@ -6,21 +6,17 @@ var User = require('./models/user');
 
 mongoose.connect('mongodb://localhost/coffeeculture');
 
-// our script will not exit until we have disconnected from the db.
 function quit() {
     mongoose.disconnect();
     console.log('\nQuitting!');
 }
 
-// a simple error handler
 function handleError(err) {
     console.error('ERROR:', err);
     quit();
     return err;
 }
 
-
-// create some User objects
 function getUsers() {
     var john = new User({
         local: {
@@ -37,10 +33,9 @@ function getUsers() {
     return [john, kim];
 }
 
-console.log('removing old posts...');
+
 Post.remove({})
     .then(function() {
-        console.log('removing old users...');
         return User.remove({});
     })
     .then(function() {
@@ -48,15 +43,31 @@ Post.remove({})
     })
     .then(function(users) {
         console.log('Saved users:', users);
-        console.log('creating some new posts...');
-
-        var starbucks   = new Post({ user: users[0], title: 'Starbucks @ PCM',  completed: false });
-        var spillerPark  = new Post({ user: users[0], title: 'Spiller Park @ PCM', completed: true  });
-
-        var dancingGoats   = new Post({ user: users[1], title: 'Dancing Goats @ PCM',  completed: false });
-        var westElm = new Post({ user: users[1], title: 'West Elm Coffee Shop', completed: true  });
-
-        return Post.create([starbucks, spillerPark, dancingGoats, westElm]);
+        var riseAndGrind = new Post({
+            user: users[0],
+            title: 'Rise and Grind',
+            content: 'This is the coolest coffee shop in Hollywood.',
+            website: 'http://risengrindla.com/'
+        });
+        var starbucks   = new Post({
+            user: users[0],
+            title: 'Starbucks @ PCM',
+            content: 'You know, Starbucks.',
+            website: 'http://starbucks.com/'
+        });
+        var spillerPark  = new Post({
+            user: users[1],
+            title: 'Spiller Park @ PCM',
+            content: 'This place is pretty cool. They drink their own coffee!',
+            website: 'http://www.spillerpark.com/'
+        });
+        var dancingGoats   = new Post({
+            user: users[1],
+            title: 'Dancing Goats @ PCM',
+            content: 'This place is known for having great single-origin pour overs!',
+            website: 'https://www.batdorfcoffee.com/retail-locations.html'
+        });
+        return Post.create([riseAndGrind, starbucks, spillerPark, dancingGoats]);
     })
     .then(function(savedPosts) {
         console.log('Just saved', savedPosts.length, 'posts.');
@@ -65,19 +76,14 @@ Post.remove({})
     .then(function(allPosts) {
         console.log('Printing all posts:');
         allPosts.forEach(function(post) {
-            console.log(post);
+            console.log(post.title);
         });
         return Post.findOne({title: 'Dancing Goats @ PCM'});
     })
-    .then(function(dancingGoats) {
-        dancingGoats.completed = true;
-        return dancingGoats.save();
+    .then(function(dancingGoat) {
+        console.log('Dancing Goat URL: ', dancingGoat.website);
     })
-    // .then(function(cleanBatcave) {
-    //   console.log('updated cleanBatcave:', cleanBatcave);
-    //   return cleanBatcave.remove();
-    // })
-    .then(function(deleted) {
+    .then(function() {
         return Post.find({});
     })
     .then(function(allPosts) {
