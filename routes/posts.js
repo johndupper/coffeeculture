@@ -14,18 +14,19 @@ function authenticate(req, res, next) {
     if(!req.isAuthenticated()) {
         req.flash('error', 'Please signup or login.');
         res.redirect('/');
-    }
-    else {
+    } else {
         next();
     }
 }
 
 
 router.get('/', authenticate, function(req, res, next) {
-    // get all the posts and render the index view
-    Post.find({ user: currentUser }).sort('-createdAt')
+    // Post.find({ user: currentUser }).sort('-createdAt')
+    Post.find({}).sort('-createdAt')
         .then(function(posts) {
-            res.render('posts/index', { posts: posts } );
+            res.render('posts/index', {
+                posts: posts
+            });
         })
         .catch(function(err) {
             return next(err);
@@ -35,19 +36,29 @@ router.get('/', authenticate, function(req, res, next) {
 // NEW
 router.get('/new', authenticate, function(req, res, next) {
     var post = {
+        user: currentUser,
         title: '',
-        completed: false
+        content: '',
+        website: ''
     };
-    res.render('posts/new', { post: post } );
+    res.render('posts/new', {
+        post: post
+    });
 });
 
 // SHOW
 router.get('/:id', authenticate, function(req, res, next) {
     Post.findById(req.params.id)
         .then(function(post) {
-            if (!post) return next(makeError(res, 'Document not found', 404));
-            if (!post.user.equals(currentUser.id)) return next(makeError(res, 'This does not belong to you!', 401));
-            res.render('posts/show', { post: post });
+            if (!post) {
+                return next(makeError(res, 'Document not found', 404));
+            } // not your own post
+            if (!post.user.equals(currentUser.id)) {
+                return next(makeError(res, 'This does not belong to you!', 401));
+            }
+            res.render('posts/show', {
+                post: post
+            });
         })
         .catch(function(err) {
             return next(err);
@@ -59,10 +70,11 @@ router.post('/', authenticate, function(req, res, next) {
     var post = new Post({
         user:      currentUser,
         title:     req.body.title,
-        completed: req.body.completed ? true : false
+        content: req.body.content,
+        website: req.body.website
     });
     post.save()
-        .then(function(saved) {
+        .then(function() {
             res.redirect('/posts');
         })
         .catch(function(err) {
