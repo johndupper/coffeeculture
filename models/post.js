@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var PostSchema = new mongoose.Schema({
         user:          { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-        name:         { type: String,  required: true },
+        title:         { type: String,  required: true },
         completed:     { type: Boolean, required: true }
     },
     { timestamps: true }  // createdAt, updatedAt
