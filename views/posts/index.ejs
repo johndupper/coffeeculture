@@ -11,7 +11,7 @@
 
     <main>
         <div>
-            <h3>TODOs:</h3>
+            <h3>Posts:</h3>
 
             <% posts.forEach(function(post) { %>
                 <h4>
@@ -20,7 +20,7 @@
                     <a href="/posts/<%= post._id %>"><%= post.title %></a>
 
                     <a href="/posts/<%= post._id %>/toggle">
-                        <% if (todo.completed) { %>
+                        <% if (post.completed) { %>
                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                         <% } else { %>
                             <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
