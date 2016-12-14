@@ -20,7 +20,7 @@ function authenticate(req, res, next) {
     }
 }
 
-// INDEX
+
 router.get('/', authenticate, function(req, res, next) {
     // get all the posts and render the index view
     Post.find({ user: currentUser }).sort('-createdAt')
