@@ -11,18 +11,10 @@
 
     <main>
         <div>
-            <h3>SHOW</h3>
+            <h3>Details</h3>
             <p><b>Title: </b><%= post.title %></p>
-            <p><b>ID: </b><%= post._id %></p>
-
-            <p><b>Completed: </b>
-                <% if (post.completed) { %>
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                <% } else { %>
-                    <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
-                <% } %>
-            </p>
-
+            <p><b>Content: </b><%= post.content %></p>
+            <p><b>Website: </b><%= post.website %></p>
             <p><b>Created: </b><%= post.getCreatedAt() %></p>
             <p><b>Last Updated: </b><%= post.getUpdatedAt() %></p>
         </div>
