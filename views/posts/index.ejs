@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body class="container-fluid">
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div>
+            <h3>TODOs:</h3>
+
+            <% posts.forEach(function(post) { %>
+                <h4>
+                <form method="POST" action="/posts/<%= post._id %>?_method=DELETE">
+
+                    <a href="/posts/<%= post._id %>"><%= post.title %></a>
+
+                    <a href="/posts/<%= post._id %>/toggle">
+                        <% if (todo.completed) { %>
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        <% } else { %>
+                            <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+                        <% } %>
+                    </a>
+
+                    <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                </form>
+                </h4>
+            <% }) %>
+        </div>
+        <a href="/posts/new" class="btn btn-primary">New</a>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+</body>
+</html>
