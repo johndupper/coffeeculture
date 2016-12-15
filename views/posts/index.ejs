@@ -12,7 +12,7 @@
 
     <% posts.forEach(function(post) { %>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default col-sm-6 col-sm-offset-3">
 
         <div class="panel-heading">
             <h3 class="panel-title"><%= post.title %></h3>
@@ -20,41 +20,24 @@
 
         <div class="panel-body">
             <h4><%= post.content %></h4>
+            <br>
+            <% var webUrl = post.website; %>
+            <% if (webUrl) { %>
+                <a href="<%= webUrl %>>" target="_blank">[ <%= post.title %> ]</a>
+            <% } %>
         </div>
 
         <div class="panel-footer">
             <p>Posted: <%= post.getUpdatedAt() %></p>
 
-            <% var webUrl = post.website; %>
-            <% if (webUrl) { %>
-                <a href="<%= webUrl %>>" target="_blank">Pouring it over...</a>
-            <% } %>
-
-            <% if (!post.user.equals(currentUser.id)) { %>
+            <% if (post.user.equals(currentUser.id)) { %>
                 <a href="edit.ejs"><button type="button" class="btn btn-sm btn-warning">Edit</button></a>
 
-
-            <form method="post" action="/posts/<%= post._id %>?_method=DELETE">
-                <button type="submit btn-sm btn-danger">Pour it out forever</button>
-            </form>
-
-
-                <a href=".ejs"><button type="submit" class="btn btn-sm btn-warning">Delete</button></a>
+                <form method="post" action="/posts/<%= post._id %>?_method=DELETE">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
             <% } %>
 
         </div>
     </div>
     <% }); %>
-
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Dancing Goats</h3>
-        </div>
-        <div class="panel-body">
-         <h4>That place is the shit!</h4>
-        </div>
-        <div class="panel-footer">
-            <span>Yeah! I like it there too!</span>
-        </div>
-    </div>
