@@ -19,10 +19,16 @@
                 <form method="POST" action="/posts/<%= post._id %>?_method=DELETE">
                     <h4><%= post.title %></h4>
                     <h5><%= post.content %></h5>
-                    <a href="<%= post.website %>">Website</a><br>
-                    <a href="/posts/<%= post._id %>">EDIT (NEEDS BUTTON)</a>
+                    <a href="<%= post.website %>" target="_blank">Website</a><br>
+                    <a href="/posts/<%= post._id %>">Details</a>
 
-                    <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                    <% if (!post.user.equals(currentUser.id)) { %>
+                        <!--<a href="/posts" class="btn btn-danger">Back</a>-->
+                        <p>You are not the author..</p>
+                    <% } else { %>
+                        <button>Edit</button>
+                        <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                    <% }%>
                 </form>
 
                 </h4>
