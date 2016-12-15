@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <% include partials/head.ejs%>
+    <% include partials/head %>
 </head>
 
 <body class="container-fluid">
@@ -9,18 +9,14 @@
         <% include partials/header %>
     </header>
 
-
     <div class="container">
-
-        <div class="starter-template">
-            <h1>Coffee Culture</h1>
-            <p class="lead">Use this document as a way to quickly start any new project.<br>
-                All you get is this text and a mostly barebones HTML document.</p>
-            <button class="btn btn-lg btn-info">Sign Up</button>
-            <button class="btn btn-lg btn-warning">Log In</button>
+        <div class="jumbotron col-sm-8 col-sm-offset-2">
+            <h2>Welcome</h2>
+            <h4>Please sign up or log in</h4>
+            <a class="btn btn-info btn-lg" href="signup" role="button">Sign Up</a>
+            <a class="btn btn-warning btn-lg" href="login" role="button">Log In</a>
         </div>
-
-    </div><!-- /.container -->
+    </div> <!-- body wrapper -->
 
 
     <footer>
