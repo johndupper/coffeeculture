@@ -52,10 +52,11 @@ router.get('/:id', authenticate, function(req, res, next) {
         .then(function(post) {
             if (!post) {
                 return next(makeError(res, 'Document not found', 404));
-            } // not your own post
-            if (!post.user.equals(currentUser.id)) {
-                return next(makeError(res, 'This does not belong to you!', 401));
             }
+            // not your own post
+            // if (!post.user.equals(currentUser.id)) {
+            //     return next(makeError(res, 'This does not belong to you!', 401));
+            // }
             res.render('posts/show', {
                 post: post
             });
@@ -68,7 +69,7 @@ router.get('/:id', authenticate, function(req, res, next) {
 // CREATE
 router.post('/', authenticate, function(req, res, next) {
     var post = new Post({
-        user:      currentUser,
+        user:      req.user,
         title:     req.body.title,
         content: req.body.content,
         website: req.body.website
@@ -86,9 +87,15 @@ router.post('/', authenticate, function(req, res, next) {
 router.get('/:id/edit', authenticate, function(req, res, next) {
     Post.findById(req.params.id)
         .then(function(post) {
-            if (!post) return next(makeError(res, 'Document not found', 404));
-            if (!post.user.equals(currentUser.id)) return next(makeError(res, 'This does not belong to you!', 401));
-            res.render('posts/edit', { post: post });
+            if (!post) {
+                return next(makeError(res, 'Document not found', 404));
+            }
+            if (!post.user.equals(currentUser.id)) {
+                return next(makeError(res, 'This does not belong to you!', 401));
+            }
+            res.render('posts/edit', {
+                post: post
+            });
         })
         .catch(function(err) {
             return next(err);
@@ -99,13 +106,18 @@ router.get('/:id/edit', authenticate, function(req, res, next) {
 router.put('/:id', authenticate, function(req, res, next) {
     Post.findById(req.params.id)
         .then(function(post) {
-            if (!post) return next(makeError(res, 'Document not found', 404));
-            if (!post.user.equals(currentUser.id)) return next(makeError(res, 'This does not belong to you!', 401));
+            if (!post) {
+                return next(makeError(res, "I'm having trouble finding that. :(", 404));
+            }
+            if (!post.user.equals(currentUser.id)) {
+                return next(makeError(res, "Please don't modify another coffee lover's post. Comment instead!", 401));
+            }
             post.title = req.body.title;
-            post.completed = req.body.completed ? true : false;
+            post.content = req.body.content;
+            post.website = req.body.website;
             return post.save();
         })
-        .then(function(saved) {
+        .then(function() {
             res.redirect('/posts');
         })
         .catch(function(err) {
