@@ -21,6 +21,7 @@ The aim of this project is to create a MEN Stack application that incorporates a
 2. `cd` to the project file, `npm install`
 
 ### Organization
+* Live Heroku Site: [here](https://guarded-ocean-57145.herokuapp.com/)
 * GitHub Repository: [here](https://github.com/johndupper/coffeeculture)
 * Trello Board: [here](https://trello.com/b/KHS5hoMZ/coffee-culture-men-stack-web-app)
 
