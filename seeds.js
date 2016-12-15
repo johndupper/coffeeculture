@@ -4,7 +4,21 @@ var bcrypt   = require('bcrypt-nodejs');
 var Post = require('./models/post');
 var User = require('./models/user');
 
-mongoose.connect('mongodb://localhost/coffeeculture');
+// Connect to database
+if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI);
+}
+else {
+    mongoose.connect('mongodb://localhost/coffeeculture');
+}
+mongoose.connection.on('error', function(err) {
+        console.error('MongoDB connection error: ' + err);
+        process.exit(-1);
+    }
+);
+mongoose.connection.once('open', function() {
+    console.log("Mongoose has connected to MongoDB!");
+});
 
 function quit() {
     mongoose.disconnect();
