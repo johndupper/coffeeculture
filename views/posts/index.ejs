@@ -15,7 +15,7 @@
 
             <% posts.forEach(function(post) { %>
                 <h4>
-
+                    <h3>This entire post is wrapped in a delete form</h3>
                 <form method="POST" action="/posts/<%= post._id %>?_method=DELETE">
                     <h4><%= post.title %></h4>
                     <h5><%= post.content %></h5>
@@ -23,8 +23,7 @@
                     <a href="/posts/<%= post._id %>">Details</a>
 
                     <% if (!post.user.equals(currentUser.id)) { %>
-                        <!--<a href="/posts" class="btn btn-danger">Back</a>-->
-                        <p>You are not the author..</p>
+                        <span>You are not the author.</span>
                     <% } else { %>
                         <button>Edit</button>
                         <button type="submit" class="btn btn-xs btn-danger">Delete</button>
