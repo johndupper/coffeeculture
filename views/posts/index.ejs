@@ -10,39 +10,51 @@
     </header>
 
 
+    <% posts.forEach(function(post) { %>
 
+    <div class="panel panel-default">
 
-
-
-    <main>
-        <div>
-            <h3>Posts:</h3>
-
-            <% posts.forEach(function(post) { %>
-                <h4>
-                    <h3>This entire post is wrapped in a delete form</h3>
-                <form method="POST" action="/posts/<%= post._id %>?_method=DELETE">
-                    <h4><%= post.title %></h4>
-                    <h5><%= post.content %></h5>
-                    <a href="<%= post.website %>" target="_blank">Website</a><br>
-                    <a href="/posts/<%= post._id %>">Details</a>
-
-                    <% if (!post.user.equals(currentUser.id)) { %>
-                        <span>You are not the author.</span>
-                    <% } else { %>
-                        <button>Edit</button>
-                        <button type="submit" class="btn btn-xs btn-danger">Delete</button>
-                    <% }%>
-                </form>
-
-                </h4>
-            <% }) %>
+        <div class="panel-heading">
+            <h3 class="panel-title"><%= post.title %></h3>
         </div>
-        <a href="/posts/new" class="btn btn-primary">New</a>
-    </main>
 
-    <footer>
-        <% include ../partials/footer %>
-    </footer>
-</body>
-</html>
+        <div class="panel-body">
+            <h4><%= post.content %></h4>
+        </div>
+
+        <div class="panel-footer">
+            <p>Posted: <%= post.getUpdatedAt() %></p>
+
+            <% var webUrl = post.website; %>
+            <% if (webUrl) { %>
+                <a href="<%= webUrl %>>" target="_blank">Pouring it over...</a>
+            <% } %>
+
+            <% if (!post.user.equals(currentUser.id)) { %>
+                <a href="edit.ejs"><button type="button" class="btn btn-sm btn-warning">Edit</button></a>
+
+
+            <form method="post" action="/posts/<%= post._id %>?_method=DELETE">
+                <button type="submit btn-sm btn-danger">Pour it out forever</button>
+            </form>
+
+
+                <a href=".ejs"><button type="submit" class="btn btn-sm btn-warning">Delete</button></a>
+            <% } %>
+
+        </div>
+    </div>
+    <% }); %>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Dancing Goats</h3>
+        </div>
+        <div class="panel-body">
+         <h4>That place is the shit!</h4>
+        </div>
+        <div class="panel-footer">
+            <span>Yeah! I like it there too!</span>
+        </div>
+    </div>
