@@ -12,7 +12,7 @@
 
     <% posts.forEach(function(post) { %>
 
-    <div class="panel panel-default col-sm-6 col-sm-offset-3">
+    <div class="panel panel-default">
 
         <div class="panel-heading">
             <h3 class="panel-title"><%= post.title %></h3>
@@ -31,13 +31,17 @@
             <p>Posted: <%= post.getUpdatedAt() %></p>
 
             <% if (post.user.equals(currentUser.id)) { %>
-                <a href="edit.ejs"><button type="button" class="btn btn-sm btn-warning">Edit</button></a>
+                <a href="/posts/<%= post._id %>"><button type="button" class="btn btn-sm btn-signup post-inline">Edit</button></a>
 
-                <form method="post" action="/posts/<%= post._id %>?_method=DELETE">
-                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                <form method="post" action="/posts/<%= post._id %>?_method=DELETE" class="post-inline">
+                    <button type="submit" class="btn btn-sm btn-login">Delete</button>
                 </form>
             <% } %>
 
         </div>
     </div>
     <% }); %>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>

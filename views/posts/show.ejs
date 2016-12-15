@@ -12,15 +12,14 @@
     <main>
         <div>
             <h3>Details</h3>
-            <p><b>Post User: </b><%= post.user %></p>
-            <p><b>Current User: </b><%= currentUser._id %></p>
             <p><b>Title: </b><%= post.title %></p>
             <p><b>Content: </b><%= post.content %></p>
             <p><b>Website: </b><%= post.website %></p>
             <p><b>Created: </b><%= post.getCreatedAt() %></p>
             <p><b>Last Updated: </b><%= post.getUpdatedAt() %></p>
         </div>
-        <a href="/posts" class="btn btn-primary">Back</a>
+        <a href="/posts/<%= post._id %>/edit" class="btn btn-signup">Edit</a>
+        <a href="/posts" class="btn btn-login">Back</a>
     </main>
 
     <footer>
