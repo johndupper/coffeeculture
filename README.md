@@ -6,7 +6,7 @@ This is a coffee-themed social forum created using MongoDB, Express.js, Node.js 
 ### User Stories
 The aim of this project is to create a MEN Stack application that incorporates authorized signup and login using Passport. The saved posts from the user are then uploaded to a MongoDB database and stored for other users to see.
  
-#### The Customer 
+#### A user... 
 * A user can sign up to our site
 * A user can log in to our site
 * A user will be notified if either of these processes aren't successful (error handling)
