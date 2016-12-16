@@ -14,7 +14,7 @@
 
         <form class="todo-form" action="/posts/<%= post._id %>?_method=PUT" method="post">
             <% include _form %>
-            <a href="/<%= post._id %>" class="btn btn-signup">Back</a>
+            <a href="/posts/<%= post._id %>" class="btn btn-signup">Back</a>
             <button type="submit" class="btn btn-login">Save</button>
         </form>
     </main>
