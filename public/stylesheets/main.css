@@ -12,6 +12,11 @@ nav {
     box-shadow: none;
 }
 
+.flash-err {
+    background: #8eb8a9;
+    text-align: center;
+}
+
 /* signup || login */
 
 h2 {
@@ -27,4 +32,6 @@ h2 {
     post border: #4c4b48
 */
 
-/* nav breaks at 350px */
+/*@media (max-width: 500px) {*/
+    /**/
+/*}*/
