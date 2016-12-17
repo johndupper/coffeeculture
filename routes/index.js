@@ -46,13 +46,8 @@ router.get('/logout', function(req, res, next) {
 });
 
 // Restricted page
-router.get('/secret', function(req, res, next) {
-    if (currentUser) {
-        res.render('secret.ejs');
-    }
-    else {
-        res.redirect('/');
-    }
+router.get('/test', function(req, res, next) {
+    res.render('test.ejs', { message: req.flash() });
 });
 
 module.exports = router;
