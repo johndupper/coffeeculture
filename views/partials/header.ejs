@@ -1,28 +1,35 @@
-<nav class="navbar navbar-full">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">Coffee Culture</a>
-        </div>
+<nav class="">
+    <div class="">
 
-        <ul class="nav navbar-nav">
-            <% if (currentUser) { %>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Coffee Culture</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+                <% if (currentUser) { %>
                 <li><a href="/">Home</a></li>
                 <li><a href="/posts">Posts</a></li>
                 <li><a href="/posts/new">New Post</a></li>
                 <li><a href="../logout">Log Out</a></li>
-            <% } %>
-        </ul>
+                <% } %>
+            </ul>
+
+        </div>
+
+
+
+
+
 
         <div class="flash">
             <% if (typeof message !== 'undefined') { %>
             <% if (typeof message.error !== 'undefined' && message.error.length > 0) { %>
-            <div class="bg-danger"><%= message.error %></div>
+            <div class=""><%= message.error %></div>
             <% } %>
             <% if (typeof message.info !== 'undefined' && message.info.length > 0) { %>
-            <div class="bg-info"><%= message.info %></div>
+            <div class=""><%= message.info %></div>
             <% } %>
             <% if (typeof message.success !== 'undefined' && message.success.length > 0) { %>
-            <div class="bg-success"><%= message.success %></div>
+            <div class=""><%= message.success %></div>
             <% } %>
             <% } %>
         </div>
