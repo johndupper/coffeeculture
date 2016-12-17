@@ -5,25 +5,45 @@
 </head>
 
 <body class="container-fluid">
+<header>
+    <% include partials/header %>
+</header>
 
 
-<nav>
-    <div class="nav-wrapper">
-        <a href="#" class="brand-logo left">Logo</a>
-        <ul id="nav-mobile" class="right">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">JavaScript</a></li>
-        </ul>
+<% posts.forEach(function(post) { %>
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <h3 class="panel-title"><%= post.title %></h3>
     </div>
-</nav>
 
+    <div class="panel-body">
+        <h4><%= post.content %></h4>
+        <br>
+        <% var webUrl = post.website; %>
+        <% if (webUrl) { %>
+        <a href="<%= webUrl %>" target="_blank"><%= post.title %></a>
+        <% } %>
+    </div>
 
+    <div class="panel-footer">
+        <p>Posted: <%= post.getUpdatedAt() %></p>
 
-<footer id="footer">
-    <div><h6>this is my footer</h6></div>
+        <% if (post.user.equals(currentUser.id)) { %>
+        <a href="/posts/<%= post._id %>"><button type="button" class="btn btn-sm btn-signup post-inline">Edit</button></a>
+
+        <form method="post" action="/posts/<%= post._id %>?_method=DELETE" class="post-inline">
+            <button type="submit" class="btn btn-sm btn-login">Delete</button>
+        </form>
+        <% } %>
+
+    </div>
+</div>
+<% }); %>
+
+<footer>
+    <% include partials/footer %>
 </footer>
 
 <% include partials/scripts %>
-</body>
-</html>

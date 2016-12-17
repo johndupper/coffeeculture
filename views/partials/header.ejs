@@ -2,8 +2,9 @@
     <div class="">
 
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Coffee Culture</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <a href="/" class="brand-logo left">Coffee Culture</a>
+            <div class="sm-wrap">
+            <ul id="nav" class="right">
 
                 <% if (currentUser) { %>
                 <li><a href="/">Home</a></li>
@@ -12,27 +13,21 @@
                 <li><a href="../logout">Log Out</a></li>
                 <% } %>
             </ul>
-
+            </div>
         </div>
-
-
-
-
-
-
-        <div class="flash">
-            <% if (typeof message !== 'undefined') { %>
-            <% if (typeof message.error !== 'undefined' && message.error.length > 0) { %>
-            <div class=""><%= message.error %></div>
-            <% } %>
-            <% if (typeof message.info !== 'undefined' && message.info.length > 0) { %>
-            <div class=""><%= message.info %></div>
-            <% } %>
-            <% if (typeof message.success !== 'undefined' && message.success.length > 0) { %>
-            <div class=""><%= message.success %></div>
-            <% } %>
-            <% } %>
-        </div>
-
     </div>
 </nav>
+
+<div class="flash">
+    <% if (typeof message !== 'undefined') { %>
+    <% if (typeof message.error !== 'undefined' && message.error.length > 0) { %>
+    <div class="flash-err"><%= message.error %></div>
+    <% } %>
+    <% if (typeof message.info !== 'undefined' && message.info.length > 0) { %>
+    <div class="flash-err"><%= message.info %></div>
+    <% } %>
+    <% if (typeof message.success !== 'undefined' && message.success.length > 0) { %>
+    <div class="flash-err"><%= message.success %></div>
+    <% } %>
+    <% } %>
+</div>
