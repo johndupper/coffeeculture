@@ -1,0 +1,30 @@
+/* general */
+
+body {
+    font-family: 'Signika', sans-serif;
+    background: floralwhite;
+    color: #2b190d;
+}
+
+nav {
+    background: #9ec2b5;
+    color: #f5f8f7;
+    box-shadow: none;
+}
+
+/* signup || login */
+
+h2 {
+    font-size: 2.5rem;
+}
+
+.for-label {
+    font-size: 1.25rem;
+    color: 	#1E344C;
+}
+
+/*
+    post border: #4c4b48
+*/
+
+/* nav breaks at 350px */
