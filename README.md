@@ -26,6 +26,9 @@ The aim of this project is to create a MEN Stack application that incorporates a
 * Trello Board: [here](https://trello.com/b/KHS5hoMZ/coffee-culture-men-stack-web-app)
 
 ---------
+### Update:
+* 12/17/16: Rewrote entire site to use Materialize in lieu of Bootstrap
+---------
 
 ### Revisions
 * I had a beautiful wireframe for this project that took an entire wall at work... in a sad twist of fate, it was erased
