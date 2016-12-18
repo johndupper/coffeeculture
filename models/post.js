@@ -11,8 +11,8 @@ var PostSchema = new mongoose.Schema({
 
 function date2String(date) {
     var options = {
-        weekday: 'long', year: 'numeric', month: 'short',
-        day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
+        weekday: 'short', year: '2-digit', month: 'short',
+        day: 'numeric', hour: '2-digit', minute: '2-digit'
     };
     return date.toLocaleDateString('en-US', options);
 }
