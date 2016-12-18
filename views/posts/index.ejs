@@ -12,24 +12,24 @@
 
     <% posts.forEach(function(post) { %>
 
-    <div class="container">
+    <div class="post-container container">
 
-        <div>
+        <div class="post-container">
             <p class="post-title"><%= post.title %></p>
         </div>
 
-        <div class="post-content">
+        <div class="post-content post-container"">
             <p><%= post.content %></p>
         </div>
 
         <% var webUrl = post.website; %>
         <% if (webUrl) { %>
-            <div>
+            <div class="post-container">
                 <a class="post-time" href="<%= webUrl %>" target="_blank"><%= post.title %></a>
             </div>
         <% } %>
 
-        <div>
+        <div class="post-container">
             <p class="post-time"><%= post.getUpdatedAt() %></p>
         </div>
 
@@ -42,7 +42,9 @@
                 <form method="post" action="/posts/<%= post._id %>?_method=DELETE" class="post-inline">
                     <button type="submit" class="post-button material-icons">delete</button>
                 </form>
-            <% } %>
+            <% } else { %>
+                <a><button class="post-button material-icons">question_answer</button></a>
+        <% } %>
 
         </div>
         <!--end buttons-->
