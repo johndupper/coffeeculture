@@ -7,14 +7,19 @@ body {
 }
 
 nav {
+    box-shadow: none;
     background: #9ec2b5;
     color: #f5f8f7;
-    box-shadow: none;
 }
 
 .flash-err {
     background: #8eb8a9;
     text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #5E746C;
 }
 
 /* signup || login */
@@ -23,58 +28,47 @@ nav {
     padding-bottom: 1rem;
 }
 
-h2 {
-    font-size: 2.5rem;
-}
-
 .for-label {
     font-size: 1.25rem;
     color: 	#1E344C;
 }
 
-/*
-    post border: #4c4b48
-*/
-
 /* posts index */
 
-.container {
-    margin: 0 auto;
-    background: #fff2d7;
+.post {
+    position: relative;;
+    width: 70%;
     margin: 1rem auto;
-}
-
-.post-title {
-    background: #E5D9C1;
+    padding: 0.5rem;
+    border-radius: 20px;
     text-align: center;
-    font-size: 2rem;
+    background: #fff2d7;
 }
 
-.post-content {
-    width: 95%;
-    margin: 0 auto;
-    font-size: 1.25rem;
+.post-right-justifty {
+    text-align: right;
+    width: 100%;
 }
 
-.post-time {
-    font-size: 0.9rem;
+.post-buttons {
+    margin-left: 2rem;
+    text-align: left;
 }
 
-.post-inline,
-.post-button {
+.post-buttons button {
+    padding: 0rem 0.5rem;
+    border: none;
+    border-radius: 20%;
+    background: #6E877E;
+    color: #f5f8f7;
+}
+
+.post-inline {
     display: inline-block;
 }
 
-.post-button {
-    padding: 0.5rem;
-    border: none;
-    background: #8EAEA2;
-    color: #2b190d;
-}
-
-.post-container {
-    text-align: center;
-    border-radius: 20px;
+.comments {
+    border-top: 2px double teal;
 }
 
 /* footer */
@@ -85,7 +79,3 @@ footer {
     bottom: 0;
     text-align: center;
 }
-
-/*@media (max-width: 500px) {*/
-    /**/
-/*}*/
