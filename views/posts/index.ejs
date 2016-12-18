@@ -1,58 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <% include ../partials/head %>
-</head>
+    <head>
+        <% include ../partials/head %>
+    </head>
 
-<body class="container-fluid">
-    <header>
-        <% include ../partials/header %>
-    </header>
+    <body>
+        <header>
+            <% include ../partials/header %>
+        </header>
 
+        <% posts.forEach(function(post) { %>
+            <div class="post">
+                <h4><%= post.title %></h4>
+                <p><%= post.content %></p>
 
-    <% posts.forEach(function(post) { %>
+                <div class="post-right-justifty">
+                    <% var website = post.website %>
+                    <% if (website) { %>
+                        <a href="<%= website %>" target="_blank"><%= post.title %></a><br>
+                    <% } %>
+                    <span><%= post.getUpdatedAt() %></span>
+                </div>
 
-    <div class="post-container container">
+                <% if (post.user.equals(currentUser.id)) { %>
+                    <div class="post-buttons">
+                        <a href="/posts/<%= post.id %>"><button class="material-icons">mode_edit</button></a>
 
-        <div class="post-container">
-            <p class="post-title"><%= post.title %></p>
-        </div>
+                        <form method="post" action="/posts/<%= post._id %>?_method=DELETE" class="post-inline">
+                            <button type="submit" class="material-icons">delete</button>
+                        </form>
+                    </div>
 
-        <div class="post-content post-container"">
-            <p><%= post.content %></p>
-        </div>
+                <% } else { %>
 
-        <% var webUrl = post.website; %>
-        <% if (webUrl) { %>
-            <div class="post-container">
-                <a class="post-time" href="<%= webUrl %>" target="_blank"><%= post.title %></a>
+                    <div class="post-buttons">
+                        <a href="/posts/<%= post.id %>">
+                            <button class="material-icons">comment</button>
+                        </a>
+                    </div>
+                <% } %>
+                <!--comments-->
+                <div class="comments">
+                    <p>Comments go here</p>
+                </div>
             </div>
-        <% } %>
+        <% }); %>
 
-        <div class="post-container">
-            <p class="post-time"><%= post.getUpdatedAt() %></p>
-        </div>
+        <footer>
+            <% include ../partials/footer %>
+        </footer>
 
-        <!--buttons-->
-            <% if (post.user.equals(currentUser.id)) { %>
-                <a href="/posts/<%= post._id %>"><button type="button" class="post-button material-icons">
-                        mode_edit
-                    </button></a>
-
-                <form method="post" action="/posts/<%= post._id %>?_method=DELETE" class="post-inline">
-                    <button type="submit" class="post-button material-icons">delete</button>
-                </form>
-            <% } else { %>
-                <a><button class="post-button material-icons">question_answer</button></a>
-        <% } %>
-
-        </div>
-        <!--end buttons-->
-    <% }); %>
-    <!--post-->
-
-    <footer>
-        <% include ../partials/footer %>
-    </footer>
-
-    <% include ../partials/scripts %>
+        <% include ../partials/scripts %>
+    </body>
