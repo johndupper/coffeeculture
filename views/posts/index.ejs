@@ -10,38 +10,58 @@
         </header>
 
         <% posts.forEach(function(post) { %>
-            <div class="post">
+            <div class="post hoverable">
                 <h4><%= post.title %></h4>
                 <p><%= post.content %></p>
 
-                <div class="post-right-justifty">
-                    <% var website = post.website %>
-                    <% if (website) { %>
-                        <a href="<%= website %>" target="_blank"><%= post.title %></a><br>
-                    <% } %>
-                    <span><%= post.getUpdatedAt() %></span>
+                <div class="post-details valign-wrapper">
+
+                    <div class="post-details-left">
+                        <!--left-->
+                        <% if (post.user.equals(currentUser.id)) { %>
+                            <div class="post-buttons">
+                                <a href="/posts/<%= post.id %>"><button class="material-icons">mode_edit</button></a>
+
+                                <form method="post" action="/posts/<%= post._id %>?_method=DELETE" class="post-inline">
+                                    <button type="submit" class="material-icons">delete</button>
+                                </form>
+                            </div>
+                        <% } else { %>
+                            <div class="post-buttons">
+                                <a href="/posts/<%= post.id %>">
+                                    <button class="material-icons">comment</button>
+                                </a>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="post-details-right">
+                        <!--right-->
+                        <% var website = post.website %>
+                        <% if (website) { %>
+                            <a href="<%= website %>" target="_blank" class="material-icons">webcall_made</a><br>
+                        <% } %>
+                        <span><%= post.getUpdatedAt() %></span>
+                    </div>
                 </div>
 
-                <% if (post.user.equals(currentUser.id)) { %>
-                    <div class="post-buttons">
-                        <a href="/posts/<%= post.id %>"><button class="material-icons">mode_edit</button></a>
-
-                        <form method="post" action="/posts/<%= post._id %>?_method=DELETE" class="post-inline">
-                            <button type="submit" class="material-icons">delete</button>
-                        </form>
-                    </div>
-
-                <% } else { %>
-
-                    <div class="post-buttons">
-                        <a href="/posts/<%= post.id %>">
-                            <button class="material-icons">comment</button>
-                        </a>
-                    </div>
-                <% } %>
                 <!--comments-->
-                <div class="comments">
-                    <p>Comments go here</p>
+                <div class="comments left-align">
+                    <div class="each-comment">
+                        <p>This is the content of my comment. What is the best way to organize and
+                            show each one individually?</p>
+                        <span><%= post.getUpdatedAt() %></span>
+                    </div>
+                    <div class="each-comment">
+                        <p>This is the content of my comment. What is the best way to organize and
+                            show each one individually?</p>
+                        <span><%= post.getUpdatedAt() %></span>
+                    </div>
+                    <div class="each-comment">
+                        <p>This is the content of my comment. What is the best way to organize and
+                            show each one individually?</p>
+                        <span><%= post.getUpdatedAt() %></span>
+                    </div>
                 </div>
             </div>
         <% }); %>
