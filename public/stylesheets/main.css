@@ -36,8 +36,9 @@ h2 {
     post border: #4c4b48
 */
 
+/* posts index */
+
 .container {
-    width: 90%;
     margin: 0 auto;
     background: #fff2d7;
     margin: 1rem auto;
@@ -70,6 +71,13 @@ h2 {
     background: #8EAEA2;
     color: #2b190d;
 }
+
+.post-container {
+    text-align: center;
+    border-radius: 20px;
+}
+
+/* footer */
 
 footer {
     position: relative;
