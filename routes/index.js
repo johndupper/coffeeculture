@@ -45,9 +45,4 @@ router.get('/logout', function(req, res, next) {
     res.redirect('/');
 });
 
-// Restricted page
-router.get('/test', function(req, res, next) {
-    res.render('test.ejs', { message: req.flash() });
-});
-
 module.exports = router;
