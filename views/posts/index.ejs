@@ -12,35 +12,42 @@
 
     <% posts.forEach(function(post) { %>
 
-    <div class="panel panel-default">
+    <div class="container">
 
-        <div class="panel-heading">
-            <h3 class="panel-title"><%= post.title %></h3>
+        <div>
+            <p class="post-title"><%= post.title %></p>
         </div>
 
-        <div class="panel-body">
-            <h4><%= post.content %></h4>
-            <br>
-            <% var webUrl = post.website; %>
-            <% if (webUrl) { %>
-                <a href="<%= webUrl %>" target="_blank"><%= post.title %></a>
-            <% } %>
+        <div class="post-content">
+            <p><%= post.content %></p>
         </div>
 
-        <div class="panel-footer">
-            <p>Posted: <%= post.getUpdatedAt() %></p>
+        <% var webUrl = post.website; %>
+        <% if (webUrl) { %>
+            <div>
+                <a class="post-time" href="<%= webUrl %>" target="_blank"><%= post.title %></a>
+            </div>
+        <% } %>
 
+        <div>
+            <p class="post-time"><%= post.getUpdatedAt() %></p>
+        </div>
+
+        <!--buttons-->
             <% if (post.user.equals(currentUser.id)) { %>
-                <a href="/posts/<%= post._id %>"><button type="button" class="btn btn-sm btn-signup post-inline">Edit</button></a>
+                <a href="/posts/<%= post._id %>"><button type="button" class="post-button material-icons">
+                        mode_edit
+                    </button></a>
 
                 <form method="post" action="/posts/<%= post._id %>?_method=DELETE" class="post-inline">
-                    <button type="submit" class="btn btn-sm btn-login">Delete</button>
+                    <button type="submit" class="post-button material-icons">delete</button>
                 </form>
             <% } %>
 
         </div>
-    </div>
+        <!--end buttons-->
     <% }); %>
+    <!--post-->
 
     <footer>
         <% include ../partials/footer %>
