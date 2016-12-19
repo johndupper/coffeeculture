@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var Post = require('../models/post');
+var Comment = require('../models/comment');
 
 function makeError(res, message, status) {
     res.statusCode = status;
@@ -21,16 +22,15 @@ function authenticate(req, res, next) {
 
 
 router.get('/', authenticate, function(req, res, next) {
-    // Post.find({ user: currentUser }).sort('-createdAt')
-    Post.find({}).sort('-createdAt')
+    Post.find({})
+        .sort('-updatedAt')
         .then(function(posts) {
-            res.render('posts/index', {
+            res.render('/', {
                 posts: posts
             });
-        })
-        .catch(function(err) {
+        }).catch(function(err) {
             return next(err);
-        });
+    });
 });
 
 // NEW
@@ -53,10 +53,6 @@ router.get('/:id', authenticate, function(req, res, next) {
             if (!post) {
                 return next(makeError(res, 'Document not found', 404));
             }
-            // not your own post
-            // if (!post.user.equals(currentUser.id)) {
-            //     return next(makeError(res, 'This does not belong to you!', 401));
-            // }
             res.render('posts/show', {
                 post: post
             });
