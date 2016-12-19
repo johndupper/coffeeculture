@@ -27,8 +27,8 @@ The aim of this project is to create a MEN Stack application that incorporates a
 
 ---------
 ### Update:
-* 12/17/16: Rewrote entire site to use Materialize in lieu of Bootstrap
-* 12/18/16: Attempted to add comments logic, stepped back to determine if I want to use embedded or ID-reference
+* 12/17/16 .. Rewrote entire site to use Materialize in lieu of Bootstrap
+* 12/18/16 .. Attempted to add comments logic, stepped back to determine if I want to use embedded or ID-reference
 ---------
 
 ### Revisions
