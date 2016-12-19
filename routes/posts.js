@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 var Post = require('../models/post');
-var Comment = require('../models/comment');
 
 function makeError(res, message, status) {
     res.statusCode = status;
