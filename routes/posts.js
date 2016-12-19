@@ -22,7 +22,7 @@ function authenticate(req, res, next) {
 
 router.get('/', authenticate, function(req, res, next) {
     // Post.find({ user: currentUser }).sort('-createdAt')
-    Post.find({}).sort('-createdAt')
+    Post.find({title: 'Rise and Grind'}) // .sort('-createdAt')
         .then(function(posts) {
             res.render('posts/index', {
                 posts: posts
