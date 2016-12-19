@@ -10,12 +10,16 @@
     </header>
 
     <main>
-        <h2>New Post</h2>
-        <form class="todo-form" action="/posts" method="post">
-            <% include _form %>
-            <a href="/posts" class="btn btn-signup">Back</a>
-            <button type="submit" class="btn btn-login">Save</button>
-        </form>
+        <div class="row">
+            <div class="user-form col">
+                <h2>New Post</h2>
+                <form class="todo-form" action="/posts" method="post">
+                    <% include _form %>
+                    <a href="/posts" class="btn btn-signup">Back</a>
+                    <button type="submit" class="btn btn-login">Save</button>
+                </form>
+            </div>
+        </div>
     </main>
 
     <footer>
