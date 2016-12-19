@@ -21,15 +21,16 @@ function authenticate(req, res, next) {
 
 
 router.get('/', authenticate, function(req, res, next) {
-    Post.find({})
-        .sort('-updatedAt')
+    // Post.find({ user: currentUser }).sort('-createdAt')
+    Post.find({}).sort('-createdAt')
         .then(function(posts) {
-            res.render('/', {
+            res.render('posts/index', {
                 posts: posts
             });
-        }).catch(function(err) {
+        })
+        .catch(function(err) {
             return next(err);
-    });
+        });
 });
 
 // NEW
