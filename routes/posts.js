@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var Post = require('../models/post');
+var Comment = require('../models/comment');
 
 function makeError(res, message, status) {
     res.statusCode = status;
@@ -23,11 +24,18 @@ function authenticate(req, res, next) {
 router.get('/', authenticate, function(req, res, next) {
     // Post.find({ user: currentUser }).sort('-createdAt')
     Post.find({title: 'Rise and Grind'}) // .sort('-createdAt')
-        .then(function(posts) {
+        .then(function(post) {
+            var comment = Comment.find();
             res.render('posts/index', {
-                posts: posts
+                posts: post,
+                comments: comment
             });
         })
+        // .then(function(posts) {
+        //     res.render('posts/index', {
+        //         posts: posts
+        //     });
+        // })
         .catch(function(err) {
             return next(err);
         });
