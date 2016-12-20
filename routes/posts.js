@@ -20,29 +20,49 @@ function authenticate(req, res, next) {
     }
 }
 
-
 router.get('/', authenticate, function(req, res, next) {
-    // Post.find({ user: currentUser }).sort('-createdAt')
-    Post.find({title: 'Rise and Grind'}) // .sort('-createdAt')
+    Post.find({ title: 'Rise and Grind' })
         .then(function(post) {
-            var comment = Comment.find();
+            var comment = Comment.findOne({});
             res.render('posts/index', {
                 posts: post,
-                comments: comment
+                passMeIn: comment
             });
         })
-        // .then(function(posts) {
-        //     res.render('posts/index', {
-        //         posts: posts
-        //     });
-        // })
         .catch(function(err) {
             return next(err);
         });
 });
 
-// NEW
-router.get('/new', authenticate, function(req, res, next) {
+//
+// router.get('/', authenticate, function(req, res, next) {
+//     // Post.find({ user: currentUser }).sort('-createdAt')
+//     Post.find({title: 'Rise and Grind'}) // .sort('-createdAt')
+//         .then(function(post) {
+//             var comment = Comment.find();
+//             return [post, comment];
+//         })
+//         .then(function(postComments) {
+//                     res.render('posts/index', {
+//                         posts: postComments[0],
+//                         comments: postComments[1]
+//                     });
+//                 })
+//         }).catch(function(err) {
+//             return next(err);
+//         });
+
+// .then(function(posts) {
+//     res.render('posts/index', {
+//         posts: posts
+//     });
+// })
+
+
+
+
+// SHOW
+    router.get('/new', authenticate, function(req, res, next) {
     var post = {
         user: currentUser,
         title: '',
@@ -54,7 +74,6 @@ router.get('/new', authenticate, function(req, res, next) {
     });
 });
 
-// SHOW
 router.get('/:id', authenticate, function(req, res, next) {
     Post.findById(req.params.id)
         .then(function(post) {
