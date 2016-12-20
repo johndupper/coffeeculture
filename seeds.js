@@ -3,6 +3,7 @@ mongoose.Promise = require('bluebird');
 var bcrypt   = require('bcrypt-nodejs');
 var Post = require('./models/post');
 var User = require('./models/user');
+var Comment = require('./models/comment');
 
 // Connect to database
 if (process.env.MONGODB_URI) {
@@ -81,6 +82,14 @@ Post.remove({})
             content: 'This place is known for having great single-origin pour overs!',
             website: 'https://www.batdorfcoffee.com/retail-locations.html'
         });
+
+        var comment = new Comment({
+            user: users[1],
+            post: riseAndGrind,
+            commentText: 'I fucking love this place!'
+        });
+        Comment.create(comment);
+
         return Post.create([riseAndGrind, starbucks, spillerPark, dancingGoats]);
     })
     .then(function(savedPosts) {
